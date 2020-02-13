@@ -27,6 +27,17 @@ class App extends React.Component {
     })
   }
 
+  handleDelete(name) {
+    let listOfNames = this.state.nameList.slice()
+    listOfNames = listOfNames.filter(name => name !== name)
+    console.log(listOfNames);
+    this.setState({
+      nameList: listOfNames,
+    })
+  }
+
+
+
   handleResetClick = () => {
     this.setState({
       value: ''
@@ -49,7 +60,12 @@ class App extends React.Component {
         <button onClick={this.handleResetClick}>Reset</button>
 
         {this.state.nameList.map(name =>
-          <NameMap key={name.id} nameValue={this.state.nameList} />)}
+          <NameMap
+            key={name}
+            nameValue={name}
+            onDelete={this.handleDelete.bind(this, name)}
+          />
+        )}
 
       </div>
     )
