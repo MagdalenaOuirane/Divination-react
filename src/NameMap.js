@@ -3,10 +3,18 @@ import React from 'react';
 
 const NameMap = (props) => (
 
-
     <div>
-        <h1>Hey {props.nameValue} </h1>
+
+
+        {/* {props.nameValue.length > 0 ? */}
+        <h1> Hey {props.nameValue} </h1>
+        {/* : null} */}
+        <br />
+
+        <button onClick={props.onUpdate}>Update</button>
+
         <button onClick={props.onDelete}>Delete</button>
+
     </div>
 )
 
