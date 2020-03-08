@@ -1,3 +1,4 @@
+
 import React from 'react';
 import NameMap from './NameMap';
 
@@ -6,10 +7,13 @@ import NameMap from './NameMap';
 class App extends React.Component {
 
   state = {
-    nameList: [],
-    value: ''
 
+    users: [],
+    value: '',
   }
+
+
+
 
 
   handleInputChange = (e) => {
@@ -18,21 +22,33 @@ class App extends React.Component {
     })
   }
 
-  handleAddName = () => {
-    const names = [...this.state.nameList]
-    names.push(this.state.value)
-    this.setState({
-      nameList: names,
 
+  handleAddName = (event) => {
+    console.log('handleAddName');
+    const names = [...this.state.users];
+
+
+
+    names.push({
+
+      name: this.state.value,
+      id: Date.now(),
     })
+
+    this.setState({
+      users: names,
+    })
+    console.log(names);
   }
 
-  handleDelete(name) {
-    let listOfNames = this.state.nameList.slice()
-    listOfNames = listOfNames.filter(name => name !== name)
-    console.log(listOfNames);
+  handleDelete(id) {
+    console.log('handleDelete:', id)
+    let listOfUsers = this.state.users.slice()
+    console.log(listOfUsers);
+    listOfUsers = listOfUsers.filter(user => id !== user.id) // return filtered list but if user returns true then the element will be deleted 
+    console.log(listOfUsers);
     this.setState({
-      nameList: listOfNames,
+      users: listOfUsers,
     })
   }
 
@@ -44,7 +60,24 @@ class App extends React.Component {
     })
   }
 
+  handleUpdateName(id) {
+    console.log("handleupdate id: ", id)
+    let updatedUsers = [...this.state.users];
+    console.log(updatedUsers);
+
+    updatedUsers = updatedUsers.map(user => id === user.id ? { ...user, name: this.state.value } : user)
+
+    console.log(updatedUsers);
+    this.setState({
+      users: updatedUsers,
+    })
+  }
+
+
+
   render() {
+
+
     return (
       <div>
         <label>
@@ -56,14 +89,20 @@ class App extends React.Component {
           />
         </label>
 
-        <button onClick={this.handleAddName}>Add me</button>
+        <button
+          onClick={this.handleAddName}>Add me</button>
+
         <button onClick={this.handleResetClick}>Reset</button>
 
-        {this.state.nameList.map(name =>
+
+
+        {this.state.users.map(user =>
           <NameMap
-            key={name}
-            nameValue={name}
-            onDelete={this.handleDelete.bind(this, name)}
+            key={user.id}
+            id={user.id}
+            nameValue={user.name}
+            onDelete={this.handleDelete.bind(this, user.id)}
+            onUpdate={this.handleUpdateName.bind(this, user.id)}
           />
         )}
 
