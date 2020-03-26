@@ -1,9 +1,6 @@
 
 import React from 'react';
 import NameMap from './NameMap';
-import Popup from './Popup';
-import 'bootstrap/dist/css/bootstrap.min.css'
-
 
 
 class App extends React.Component {
@@ -12,7 +9,7 @@ class App extends React.Component {
 
     users: [],
     value: '',
-    showPopup: false,
+    
   }
 
 
@@ -63,39 +60,27 @@ class App extends React.Component {
     })
   }
 
-  // handleUpdateName(id) {
-  //   console.log("handleupdate id: ", id)
-  //   let updatedUsers = [...this.state.users];
-  //   console.log(updatedUsers);
+  handleUpdateName(id) {
+    console.log("handleupdate id: ", id)
+    let updatedUsers = [...this.state.users];
+    console.log(updatedUsers);
 
-  //   updatedUsers = updatedUsers.map(user => id === user.id ? { ...user, name: this.state.value } : user)
+    updatedUsers = updatedUsers.map(user => id === user.id ? { ...user, name: this.state.value } : user)
 
-  //   console.log(updatedUsers);
-  //   this.setState({
-  //     users: updatedUsers,
-  //   })
-  // }
-
-  togglePopup() {
-    this.setState ({
-      showPopup : !this.state.showPopup
+    console.log(updatedUsers);
+    this.setState({
+      users: updatedUsers,
     })
-   }
-
-//    closePopup() {
-// console.log(closePopup);
-//    }
+  }
 
 
-
-  render() {
-
+ render() {
 
     return (
       <div>
         <label>
           Name:
-<input
+          <input
             type='text'
             value={this.state.value}
             onChange={this.handleInputChange}
@@ -104,21 +89,13 @@ class App extends React.Component {
         
 
         <button onClick={this.handleAddName} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Add me
-</button>
+         Add me
+        </button>
 
-        {/* <button
-          onClick={this.handleAddName}>Add me</button> */}
 
 <button onClick={this.handleResetClick} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Reset
 </button>
-
-
-{/* 
-        <button onClick={this.handleResetClick}>Reset</button> */}
-
-
 
         {this.state.users.map(user =>
           <NameMap
@@ -126,22 +103,15 @@ class App extends React.Component {
             id={user.id}
             nameValue={user.name}
             onDelete={this.handleDelete.bind(this, user.id)}
-            // onUpdate={this.handleUpdateName.bind(this, user.id)}
-       toggle = {this.togglePopup.bind(this)}
-        // closePop= {this.closePopup.bind(this)}
+            onUpdate={this.handleUpdateName.bind(this, user.id)}
+     
         
         />
         )}
 
-{this.state.showPopup && <Popup
- toggle={this.togglePopup.bind(this)}
-
-/>}
       </div>
     )
   }
-
-
 }
 
 export default App;
