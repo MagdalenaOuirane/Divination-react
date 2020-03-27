@@ -3,6 +3,7 @@ import React from 'react';
 import NameMap from './NameMap';
 
 
+
 class App extends React.Component {
 
   state = {
@@ -53,8 +54,7 @@ class App extends React.Component {
   }
 
 
-
-  handleResetClick = () => {
+handleResetClick = () => {
     this.setState({
       value: ''
     })
@@ -78,9 +78,9 @@ class App extends React.Component {
 
     return (
       <div>
-        <label>
+        <label style={{fontWeight:'bold', fontSize:'20px'}}>
           Name:
-          <input
+           <input style={{margin:'15px'}}
             type='text'
             value={this.state.value}
             onChange={this.handleInputChange}
@@ -88,12 +88,12 @@ class App extends React.Component {
         </label>
         
 
-        <button onClick={this.handleAddName} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <button style={{marginLeft:'5px', marginBottom:'10px'}} onClick={this.handleAddName} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
          Add me
         </button>
 
 
-<button onClick={this.handleResetClick} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button style={{marginLeft:'5px',marginBottom: '10px'}} onClick={this.handleResetClick} type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Reset
 </button>
 
@@ -104,9 +104,8 @@ class App extends React.Component {
             nameValue={user.name}
             onDelete={this.handleDelete.bind(this, user.id)}
             onUpdate={this.handleUpdateName.bind(this, user.id)}
-     
-        
-        />
+            // change={this.handleInputChange}
+     />
         )}
 
       </div>
